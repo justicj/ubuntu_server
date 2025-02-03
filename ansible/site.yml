@@ -1,0 +1,6 @@
+---
+- name: Configure Justice PVR Linux system
+  hosts: all
+  gather_facts: true
+  roles:
+    - role: justice_pvr
