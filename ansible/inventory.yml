@@ -4,5 +4,10 @@ all:
       ansible_host: 192.168.1.80
   vars:
     packages:
-      - "python3-pip"
+      - gnome-terminal
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
 
