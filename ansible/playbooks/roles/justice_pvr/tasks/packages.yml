@@ -1,4 +1,8 @@
 ---
+- name: Install apt key for docker
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
 - name: Configure apt repositories for docker
   ansible.builtin.apt_repository:
@@ -13,3 +17,13 @@
     state: present
     update_cache: true
     cache_valid_time: 3600
+
+- name: Download Docker desktop from url
+  ansible.builtin.get_url:
+    url: https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
+    dest: /tmp/docker-desktop.deb
+
+- name: Install Docker desktop
+  ansible.builtin.apt:
+    deb: /tmp/docker-desktop.deb
+    state: present
