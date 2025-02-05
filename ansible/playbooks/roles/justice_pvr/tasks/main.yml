@@ -8,3 +8,13 @@
     name: docker
     state: started
     enabled: true
+
+- name: Import tasks from system.yml
+  import_tasks: system.yml
+  tags:
+    - system
+
+- name: Import tasks from pvr.yml
+  import_tasks: pvr.yml
+  tags:
+    - pvr

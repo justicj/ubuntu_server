@@ -1,0 +1,26 @@
+---
+version: "3"
+services:
+# PLEX
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    # image: linuxserver/plex
+    # image: linuxserver/plex:bionic
+    # image: plexinc/pms-docker
+    container_name: plex
+    network_mode: host
+    privileged: true
+    restart: unless-stopped
+    environment:
+      - VERSION=docker
+      - TZ=America/Los_Angeles
+      - PUID=1000
+      - PGID=1000
+      - UMASK=022
+      #- PLEX_CLAIM=##USE##YOUR#OWN## # https://plex.tv/claim/
+      - 'ADVERTISE_IP=http://192.168.1.15:32400/,https://justice-plex/'
+    volumes:
+      - /appdata/plex:/config
+      - /appdata/plex/transcode:/transcode
+      - /media/##USE##YOUR#OWN##/Media:/media
+      - /media/##USE##YOUR#OWN##/Torrents:/torrents

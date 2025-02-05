@@ -1,0 +1,13 @@
+---
+
+- name: Set lid functions
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "^#HandleLidSwitchExternalPower"
+    line: "HandleLidSwitchExternalPower=ignore"
+
+- name: Reload systemd and systemd-logind
+  ansible.builtin.systemd_service:
+    state: restarted
+    daemon_reload: true 
+    name: systemd-logind

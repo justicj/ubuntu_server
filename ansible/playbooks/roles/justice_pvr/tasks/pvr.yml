@@ -1,0 +1,13 @@
+---
+
+- name: Create Directories for media
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /media/Media
+    - /media/Media/Movies
+    - /media/Media/TV
+    - /media/Media/Music
+    - /media/Media/Books

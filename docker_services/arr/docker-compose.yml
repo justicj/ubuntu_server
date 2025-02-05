@@ -1,0 +1,83 @@
+---
+version: "3"
+services:
+## lidarr
+  lidarr:
+    image: lscr.io/linuxserver/lidarr
+    container_name: lidarr
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /appdata/lidarr:/config
+      - /media/##USE##YOUR#OWN##/Media/Music:/music
+      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+## Radarr
+  radarr:
+    image: ghcr.io/linuxserver/radarr
+    container_name: radarr
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=##USE##YOUR#OWN##
+    volumes:
+      - /appdata/radarr:/config
+      - /media/##USE##YOUR#OWN##/Media/Movies/:/movies
+      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+## Sonarr
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=##USE##YOUR#OWN##
+    volumes:
+      - /appdata/sonarr:/config
+      - /media/##USE##YOUR#OWN##/Media/TV:/tv
+      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+## Prowlarr
+  prowlarr:
+    image: ghcr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=##USE##YOUR#OWN##
+    volumes:
+      - /appdata/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+## Readarr
+  readarr:
+    container_name: readarr
+    privileged: true
+    image: lscr.io/linuxserver/readarr:develop
+    ports:
+      - 8787:8787
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=##USE##YOUR#OWN##
+    volumes:
+      - /appdata/readarr:/config
+      - /media/##USE##YOUR#OWN##/Media/Audiobooks/:/audiobooks
+      - /media/##USE##YOUR#OWN##/Media/Books/:/books
+      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+    restart: unless-stopped
