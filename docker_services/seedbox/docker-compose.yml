@@ -1,8 +1,5 @@
 ---
-## seedbox
-version: "3"
 services:
-## Gluetun
     # https://hub.docker.com/r/qmcgaw/gluetun
     # https://github.com/qdm12/gluetun/wiki/Environment-variables
     # https://github.com/qdm12/gluetun/wiki/Connect-a-container-to-gluetun
@@ -15,15 +12,21 @@ services:
     privileged: true
     cap_add:
       - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
     volumes:
       - /appdata/gluetun:/gluetun
+    env_file:
+      - .env
     environment:
-      - TZ=##USE##YOUR#OWN##
-      - VPN_TYPE=##USE##YOUR#OWN##
-      - VPNSP=##USE##YOUR#OWN##
-      - REGION=##USE##YOUR#OWN##
-      - OPENVPN_USER=##USE##YOUR#OWN##
-      - OPENVPN_PASSWORD=##USE##YOUR#OWN##
+      - TZ=America/Los_Angeles
+      #- #VPN_TYPE=##USE##YOUR#OWN##
+      #- #VPNSP=##USE##YOUR#OWN##
+      #- #REGION=##USE##YOUR#OWN##
+      #- #OPENVPN_USER=##USE##YOUR#OWN##
+      #- #OPENVPN_PASSWORD=##USE##YOUR#OWN##
+      - VPN_SERVICE_PROVIDER=privado
+      - SERVER_COUNTRIES=United States
     ports:
       - 6881:6881/tcp # QBittorrent
       - 6881:6881/udp # QBittorrent
@@ -43,26 +46,25 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=##USE##YOUR#OWN##
+      - TZ=America/Los_Angeles
       - WEBUI_PORT=8080
     volumes:
       - /appdata/qbittorrent:/config
-      - /media/##USE##YOUR#OWN##/Torrents:/downloads
-      - /media/##USE##YOUR#OWN##/Media:/media
+      - /media/Media/Torrents:/downloads
+      - /media/Media:/media
     restart: unless-stopped
-## Jackett
   jackett:
     image: lscr.io/linuxserver/jackett
     container_name: jackett
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=##USE##YOUR#OWN##
+      - TZ=America/Los_Angeles
       - AUTO_UPDATE=true
     volumes:
       - /appdata/jackett:/config
-      - /media/##USE##YOUR#OWN##/Torrents:/downloads
-      - /media/##USE##YOUR#OWN##/Media:/media
+      - /media/Media/Torrents:/downloads
+      - /media/Media:/media
     ports:
       - 9117:9117
     restart: unless-stopped

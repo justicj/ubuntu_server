@@ -3,12 +3,6 @@
 - name: Import tasks from packages.yml
   import_tasks: packages.yml
 
-- name: Ensure docker service is started
-  ansible.builtin.service:
-    name: docker
-    state: started
-    enabled: true
-
 - name: Import tasks from system.yml
   import_tasks: system.yml
   tags:

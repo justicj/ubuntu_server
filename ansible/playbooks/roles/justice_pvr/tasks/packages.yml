@@ -1,4 +1,16 @@
 ---
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+  register: package_facts
+  tags: facts
+
+- name: Debug Docker package facts
+  ansible.builtin.debug:
+    var: package_facts.ansible_facts.packages['docker-desktop']
+  tags: facts
+
 - name: Install apt key for docker
   ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
@@ -22,8 +34,20 @@
   ansible.builtin.get_url:
     url: https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
     dest: /tmp/docker-desktop.deb
+  when: package_facts.ansible_facts.packages['docker-desktop']
 
 - name: Install Docker desktop
   ansible.builtin.apt:
     deb: /tmp/docker-desktop.deb
     state: present
+  when: package_facts.ansible_facts.packages['docker-desktop']
+
+- name: Ensure docker service is started
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Swap contect for docker
+  ansible.builtin.shell:
+    command: "docker context use default"

@@ -1,7 +1,5 @@
 ---
-version: "3"
 services:
-## lidarr
   lidarr:
     image: lscr.io/linuxserver/lidarr
     container_name: lidarr
@@ -12,12 +10,11 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /appdata/lidarr:/config
-      - /media/##USE##YOUR#OWN##/Media/Music:/music
-      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+      - /media/Media/Music:/music
+      - /media/Media/Torrents:/downloads
     ports:
       - 8686:8686
     restart: unless-stopped
-## Radarr
   radarr:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
@@ -25,15 +22,14 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=##USE##YOUR#OWN##
+      - TZ=America/Los_Angeles
     volumes:
       - /appdata/radarr:/config
-      - /media/##USE##YOUR#OWN##/Media/Movies/:/movies
-      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+      - /media/Media/Movies/:/movies
+      - /media/Torrents:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
-## Sonarr
   sonarr:
     image: ghcr.io/linuxserver/sonarr:latest
     container_name: sonarr
@@ -41,15 +37,14 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=##USE##YOUR#OWN##
+      - TZ=America/Los_Angeles
     volumes:
       - /appdata/sonarr:/config
-      - /media/##USE##YOUR#OWN##/Media/TV:/tv
-      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+      - /media/Media/TV:/tv
+      - /media/Media/Torrents:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
-## Prowlarr
   prowlarr:
     image: ghcr.io/linuxserver/prowlarr:develop
     container_name: prowlarr
@@ -57,13 +52,12 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=##USE##YOUR#OWN##
+      - TZ=America/Los_Angeles
     volumes:
       - /appdata/prowlarr:/config
     ports:
       - 9696:9696
     restart: unless-stopped
-## Readarr
   readarr:
     container_name: readarr
     privileged: true
@@ -74,10 +68,10 @@ services:
       - PUID=1000
       - PGID=1000
       - UMASK=002
-      - TZ=##USE##YOUR#OWN##
+      - TZ=America/Los_Angeles
     volumes:
       - /appdata/readarr:/config
-      - /media/##USE##YOUR#OWN##/Media/Audiobooks/:/audiobooks
-      - /media/##USE##YOUR#OWN##/Media/Books/:/books
-      - /media/##USE##YOUR#OWN##/Torrents:/downloads
+      - /media/Media/Audiobooks/:/audiobooks
+      - /media/Media/Books/:/books
+      - /media/Media/Torrents:/downloads
     restart: unless-stopped

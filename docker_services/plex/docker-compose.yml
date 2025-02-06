@@ -1,12 +1,7 @@
 ---
-version: "3"
 services:
-# PLEX
   plex:
     image: lscr.io/linuxserver/plex:latest
-    # image: linuxserver/plex
-    # image: linuxserver/plex:bionic
-    # image: plexinc/pms-docker
     container_name: plex
     network_mode: host
     privileged: true
@@ -22,5 +17,5 @@ services:
     volumes:
       - /appdata/plex:/config
       - /appdata/plex/transcode:/transcode
-      - /media/##USE##YOUR#OWN##/Media:/media
-      - /media/##USE##YOUR#OWN##/Torrents:/torrents
+      - /media/Media:/media
+      - /media/Media/Torrents:/torrents
