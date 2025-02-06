@@ -11,7 +11,7 @@ services:
     volumes:
       - /appdata/lidarr:/config
       - /media/Media/Music:/music
-      - /media/Media/Torrents:/downloads
+      - /media/Media/Downloads/Complete:/downloads
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -25,8 +25,8 @@ services:
       - TZ=America/Los_Angeles
     volumes:
       - /appdata/radarr:/config
-      - /media/Media/Movies/:/movies
-      - /media/Torrents:/downloads
+      - /media/Media/Movies:/movies
+      - /media/Media/Downloads/Complete:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -41,7 +41,7 @@ services:
     volumes:
       - /appdata/sonarr:/config
       - /media/Media/TV:/tv
-      - /media/Media/Torrents:/downloads
+      - /media/Media/Downloads/Complete:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -73,5 +73,5 @@ services:
       - /appdata/readarr:/config
       - /media/Media/Audiobooks/:/audiobooks
       - /media/Media/Books/:/books
-      - /media/Media/Torrents:/downloads
+      - /media/Media/Downloads/Complete:/downloads
     restart: unless-stopped

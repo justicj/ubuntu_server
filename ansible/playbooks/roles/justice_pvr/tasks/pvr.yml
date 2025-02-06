@@ -5,6 +5,7 @@
     path: "{{ item }}"
     state: directory
     mode: '0755'
+    owner: '1000'
   loop: "{{ pvr_directories }}"
 
 - name: Create Directories for appdata
@@ -12,4 +13,5 @@
     path: "{{ item }}"
     state: directory
     mode: '0755'
+    owner: '1000'
   loop: "{{ appdata_directories }}"

@@ -19,6 +19,8 @@ pvr_directories:
   - "{{ media_base }}/Books"
   - "{{ media_base }}/Audiobooks"
   - "{{ media_base }}/Torrents"
+  - "{{ media_base }}/Downloads/Complete"
+  - "{{ media_base }}/Downloads/Incomplete"
 
 appdata_base: /appdata
 appdata_directories:
@@ -33,3 +35,4 @@ appdata_directories:
   - "{{ appdata_base }}/gluetun"
   - "{{ appdata_base }}/qbittorrent"
   - "{{ appdata_base }}/jackett"
+  - "{{ appdata_base }}/sabnzbd"
