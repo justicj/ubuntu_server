@@ -30,6 +30,6 @@ appdata_directories:
   - "{{ appdata_base }}/readarr"
   - "{{ appdata_base }}/plex"
   - "{{ appdata_base }}/plex/transcode"
-  - "{{ appdata_base }}/glutun"
+  - "{{ appdata_base }}/gluetun"
   - "{{ appdata_base }}/qbittorrent"
   - "{{ appdata_base }}/jackett"
