@@ -18,4 +18,3 @@ services:
       - /appdata/plex:/config
       - /appdata/plex/transcode:/transcode
       - /media/Media:/media
-      - /media/Media/Torrents:/torrents
