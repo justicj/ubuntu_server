@@ -16,12 +16,31 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Configure apt repositories for docker
+- name: Install apt key for NVIDIA
+  ansible.builtin.debug:
+    msg: "Installing NVIDIA key and repository via idempotent keyring + list tasks"
+
+- name: Create NVIDIA apt keyring
+  ansible.builtin.shell:
+    cmd: |
+      curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey |
+      gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+
+- name: Add NVIDIA apt repository (signed-by keyring)
+  ansible.builtin.shell:
+    cmd: |
+      curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list |
+      sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' |
+      tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+  args:
+    creates: /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+- name: Ensure Docker apt repository is present
   ansible.builtin.apt_repository:
-    repo: "{{ item }}"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
     state: present
-  loop:
-    - "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
 
 - name: Install Packages
   ansible.builtin.apt:
@@ -30,17 +49,17 @@
     update_cache: true
     cache_valid_time: 3600
 
-- name: Download Docker desktop from url
-  ansible.builtin.get_url:
-    url: https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
-    dest: /tmp/docker-desktop.deb
-  when: package_facts.ansible_facts.packages['docker-desktop']
+# - name: Download Docker desktop from url
+#  ansible.builtin.get_url:
+#    url: https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
+#    dest: /tmp/docker-desktop.deb
+#  when: package_facts.ansible_facts.packages['docker-desktop']
 
 - name: Install Docker desktop
   ansible.builtin.apt:
-    deb: /tmp/docker-desktop.deb
+    deb: "https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb"
     state: present
-  when: package_facts.ansible_facts.packages['docker-desktop']
+  when: "'docker-desktop' not in package_facts.ansible_facts.packages"
 
 - name: Ensure docker service is started
   ansible.builtin.service:
@@ -48,6 +67,15 @@
     state: started
     enabled: true
 
-- name: Swap contect for docker
+- name: Swap context for docker
   ansible.builtin.shell:
     command: "docker context use default"
+
+- name: Configure NVIDIA container toolkit
+  ansible.builtin.shell:
+    command: "nvidia-ctk runtime configure --runtime=docker"
+
+- name: Restart docker to apply NVIDIA container toolkit changes
+  ansible.builtin.service:
+    name: docker
+    state: restarted

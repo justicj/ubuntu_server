@@ -3,7 +3,6 @@ services:
   lidarr:
     image: lscr.io/linuxserver/lidarr
     container_name: lidarr
-    privileged: true
     environment:
       - PUID=1000
       - PGID=1000
@@ -14,11 +13,16 @@ services:
       - /media/Media/Downloads/Complete:/downloads
     ports:
       - 8686:8686
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8686/ping || exit 1" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     restart: unless-stopped
   radarr:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
-    privileged: true
     environment:
       - PUID=1000
       - PGID=1000
@@ -29,11 +33,16 @@ services:
       - /media/Media/Downloads/Complete:/downloads
     ports:
       - 7878:7878
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:7878/ping || exit 1" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     restart: unless-stopped
   sonarr:
     image: ghcr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    privileged: true
     environment:
       - PUID=1000
       - PGID=1000
@@ -44,11 +53,16 @@ services:
       - /media/Media/Downloads/Complete:/downloads
     ports:
       - 8989:8989
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8989/ping || exit 1" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     restart: unless-stopped
   prowlarr:
     image: ghcr.io/linuxserver/prowlarr:develop
     container_name: prowlarr
-    privileged: true
     environment:
       - PUID=1000
       - PGID=1000
@@ -57,10 +71,15 @@ services:
       - /appdata/prowlarr:/config
     ports:
       - 9696:9696
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:9696/ping || exit 1" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     restart: unless-stopped
   readarr:
     container_name: readarr
-    privileged: true
     image: lscr.io/linuxserver/readarr:develop
     ports:
       - 8787:8787
@@ -74,4 +93,10 @@ services:
       - /media/Media/Audiobooks/:/audiobooks
       - /media/Media/Books/:/books
       - /media/Media/Downloads/Complete:/downloads
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8787/ping || exit 1" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     restart: unless-stopped

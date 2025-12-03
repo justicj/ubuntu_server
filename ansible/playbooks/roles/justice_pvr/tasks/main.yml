@@ -1,14 +1,14 @@
 ---
 
 - name: Import tasks from packages.yml
-  import_tasks: packages.yml
+  ansible.builtin.import_tasks: packages.yml
 
 - name: Import tasks from system.yml
-  import_tasks: system.yml
+  ansible.builtin.import_tasks: system.yml
   tags:
     - system
 
 - name: Import tasks from pvr.yml
-  import_tasks: pvr.yml
+  ansible.builtin.import_tasks: pvr.yml
   tags:
     - pvr
