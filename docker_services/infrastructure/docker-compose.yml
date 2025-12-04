@@ -43,6 +43,7 @@ services:
       test: [ 'CMD', 'portainer', '--healthcheck' ]
 
   nginx-proxy-manager:
+    container_name: nginx-proxy-manager
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
