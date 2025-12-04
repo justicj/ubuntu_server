@@ -19,9 +19,9 @@ services:
     volumes:
       - /appdata/plex:/config
       - /appdata/plex/transcode:/transcode
-      - /media/Media:/media
+      - /pool/data/media:/media
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://localhost:32400/web || exit 1" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:32400/web" ]
       interval: 1m30s
       timeout: 10s
       retries: 3

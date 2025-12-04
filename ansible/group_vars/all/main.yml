@@ -1,7 +1,8 @@
 ---
+ubuntu_username: plex
 nvidia_container_toolkit_version: 1.18.1-1
 
-packages:
+install_packages:
   - curl
   - vim
   - gnome-terminal
@@ -17,18 +18,18 @@ packages:
   - "libnvidia-container-tools={{ nvidia_container_toolkit_version }}"
   - "libnvidia-container1={{ nvidia_container_toolkit_version }}"
 
-media_mount: /media
-media_base: "{{ media_mount}}/Media"
+zfs_pool: "/pool/data/media"
 pvr_directories:
-  - "{{ media_base }}"
-  - "{{ media_base }}/Movies"
-  - "{{ media_base }}/TV"
-  - "{{ media_base }}/Music"
-  - "{{ media_base }}/Books"
-  - "{{ media_base }}/Audiobooks"
-  - "{{ media_base }}/Torrents"
-  - "{{ media_base }}/Downloads/Complete"
-  - "{{ media_base }}/Downloads/Incomplete"
+  - "{{ zfs_pool }}"
+  - "{{ zfs_pool }}/Movies"
+  - "{{ zfs_pool }}/TV"
+  - "{{ zfs_pool }}/Music"
+  - "{{ zfs_pool }}/Books"
+  - "{{ zfs_pool }}/Audiobooks"
+  - "{{ zfs_pool }}/Torrents"
+  - "/home/{{ ubuntu_username }}/Downloads"
+  - "/home/{{ ubuntu_username }}/Downloads/Complete"
+  - "/home/{{ ubuntu_username }}/Downloads/Incomplete"
 
 appdata_base: /appdata
 appdata_directories:
@@ -44,3 +45,12 @@ appdata_directories:
   - "{{ appdata_base }}/qbittorrent"
   - "{{ appdata_base }}/jackett"
   - "{{ appdata_base }}/sabnzbd"
+  - "{{ appdata_base }}/tautulli"
+  - "{{ appdata_base }}/homeassistant"
+  - "{{ appdata_base }}/portainer"
+  - "{{ appdata_base }}/nginx_proxy_manager"
+  - "{{ appdata_base }}/nginx_proxy_manager_letsencrypt"
+  - "{{ appdata_base }}/beszel"
+  - "{{ appdata_base }}/beszel_agent"
+  - "{{ appdata_base }}/beszel_socket"
+  - "{{ appdata_base }}/overseerr"

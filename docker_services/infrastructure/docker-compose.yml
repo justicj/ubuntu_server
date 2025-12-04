@@ -1,0 +1,100 @@
+services:
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    restart: unless-stopped
+    ports:
+      - 8090:8090
+    volumes:
+      - /appdata/beszel:/beszel_data
+      - /appdata/beszel_socket:/beszel_socket
+    healthcheck:
+      test: [ 'CMD', '/beszel', 'health', '--url', 'http://localhost:8090' ]
+      start_period: 30s
+      interval: 120s
+
+  beszel-agent:
+    image: henrygd/beszel-agent
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /appdata/beszel_agent:/var/lib/beszel-agent
+      # monitor other disks / partitions by mounting a folder in /extra-filesystems
+      # - /mnt/disk/.beszel:/extra-filesystems/sda1:ro
+    environment:
+      LISTEN: /beszel_socket/beszel.sock
+      KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ65r7uwYgPaHikZy9c2TmekAO8Bex5P4lE/jhL4wSBq'
+      TOKEN: 001c8088-7cf2-4edb-b968-8fe244ffcce5
+      HUB_URL: http://localhost:8090
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:lts
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /appdata/portainer:/data
+    ports:
+      - 9443:9443
+      # - 8000:8000 # Remove if you do not intend to use Edge Agents
+
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - /appdata/nginx_proxy_manager:/data
+      - /appdata/nginx_proxy_manager_letsencrypt:/etc/letsencrypt
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:81/api" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  homeassistant:
+    container_name: homeassistant
+    image: "homeassistant/home-assistant"
+    volumes:
+      - /appdata/homeassistant_config:/config
+    restart: unless-stopped
+    ports:
+      - 8123:8123
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8123" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /appdata/tautulli:/config
+    ports:
+      - 8181:8181
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8181/status" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  portainer_data:
+    name: portainer_data
+
+networks:
+  default:
+    name: portainer_network

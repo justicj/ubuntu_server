@@ -44,7 +44,7 @@
 
 - name: Install Packages
   ansible.builtin.apt:
-    name: "{{ packages }}"
+    name: "{{ install_packages }}"
     state: present
     update_cache: true
     cache_valid_time: 3600
@@ -68,12 +68,10 @@
     enabled: true
 
 - name: Swap context for docker
-  ansible.builtin.shell:
-    command: "docker context use default"
+  ansible.builtin.shell: "docker context use default"
 
 - name: Configure NVIDIA container toolkit
-  ansible.builtin.shell:
-    command: "nvidia-ctk runtime configure --runtime=docker"
+  ansible.builtin.shell: "nvidia-ctk runtime configure --runtime=docker"
 
 - name: Restart docker to apply NVIDIA container toolkit changes
   ansible.builtin.service:

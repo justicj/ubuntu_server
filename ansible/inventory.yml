@@ -2,6 +2,8 @@ all:
   hosts:
     ubuntu-hp:
       ansible_host: 192.168.1.80
+    vm:
+      ansible_host: 192.168.1.254
     localhost:
       ansible_connection: local
 

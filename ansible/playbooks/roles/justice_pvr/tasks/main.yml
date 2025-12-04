@@ -2,6 +2,8 @@
 
 - name: Import tasks from packages.yml
   ansible.builtin.import_tasks: packages.yml
+  tags:
+    - packages
 
 - name: Import tasks from system.yml
   ansible.builtin.import_tasks: system.yml
