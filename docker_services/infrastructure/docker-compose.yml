@@ -40,6 +40,7 @@ services:
     ports:
       - 9443:9443
       # - 8000:8000 # Remove if you do not intend to use Edge Agents
+
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     image: 'jc21/nginx-proxy-manager:latest'
@@ -91,11 +92,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-
-volumes:
-  portainer_data:
-    name: portainer_data
-
-networks:
-  default:
-    name: portainer_network
