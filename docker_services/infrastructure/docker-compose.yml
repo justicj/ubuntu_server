@@ -40,9 +40,6 @@ services:
     ports:
       - 9443:9443
       # - 8000:8000 # Remove if you do not intend to use Edge Agents
-    healthcheck:
-      test: [ "CMD", "curl", "-fk", "https://localhost:9443" ]
-
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
     image: 'jc21/nginx-proxy-manager:latest'
