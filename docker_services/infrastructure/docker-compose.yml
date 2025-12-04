@@ -73,7 +73,7 @@ services:
       start_period: 30s
 
   tautulli:
-    image: lscr.io/linuxserver/tautulli:latest
+    image: linuxserver/tautulli:latest
     container_name: tautulli
     environment:
       - PUID=1000

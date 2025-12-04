@@ -1,7 +1,7 @@
 ---
 services:
   plex:
-    image: lscr.io/linuxserver/plex:latest
+    image: linuxserver/plex:latest
     container_name: plex
     runtime: nvidia
     network_mode: host

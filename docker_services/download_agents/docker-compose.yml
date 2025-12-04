@@ -35,7 +35,7 @@ services:
   # https://hub.docker.com/r/linuxserver/qbittorrent
   # DEFAULT PASSWORD IS admin/adminadmin
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent
+    image: linuxserver/qbittorrent:latest
     container_name: qbittorrent
     privileged: true
     network_mode: "container:gluetun"
@@ -50,7 +50,7 @@ services:
       - /pool/data/media:/media
     restart: unless-stopped
   sabnzbd:
-    image: lscr.io/linuxserver/sabnzbd:latest
+    image: linuxserver/sabnzbd:latest
     container_name: sabnzbd
     privileged: true
     environment:

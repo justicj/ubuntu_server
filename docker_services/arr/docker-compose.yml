@@ -1,7 +1,7 @@
 ---
 services:
   lidarr:
-    image: lscr.io/linuxserver/lidarr
+    image: linuxserver/lidarr:latest
     container_name: lidarr
     environment:
       - PUID=1000
@@ -10,7 +10,7 @@ services:
     volumes:
       - /appdata/lidarr:/config
       - /pool/data/media/Music:/music
-      - /home/plex/Downloads/Complete:/downloads
+      - /home/8853/Downloads/Complete:/downloads
     ports:
       - 8686:8686
     healthcheck:
@@ -21,7 +21,7 @@ services:
       start_period: 30s
     restart: unless-stopped
   radarr:
-    image: ghcr.io/linuxserver/radarr
+    image: linuxserver/radarr:develop
     container_name: radarr
     environment:
       - PUID=1000
@@ -41,7 +41,7 @@ services:
       start_period: 30s
     restart: unless-stopped
   sonarr:
-    image: ghcr.io/linuxserver/sonarr:latest
+    image: linuxserver/sonarr:latest
     container_name: sonarr
     environment:
       - PUID=1000
@@ -61,7 +61,7 @@ services:
       start_period: 30s
     restart: unless-stopped
   prowlarr:
-    image: ghcr.io/linuxserver/prowlarr:develop
+    image: linuxserver/prowlarr:develop
     container_name: prowlarr
     environment:
       - PUID=1000
@@ -80,7 +80,7 @@ services:
     restart: unless-stopped
   readarr:
     container_name: readarr
-    image: lscr.io/linuxserver/readarr:develop
+    image: linuxserver/readarr:develop
     ports:
       - 8787:8787
     environment:
@@ -103,7 +103,7 @@ services:
 
   overseerr:
     container_name: overseerr
-    image: 'sctx/overseerr:latest'
+    image: linuxserver/overseerr:latest
     environment:
       - LOG_LEVEL=debug
       - TZ=America/Los_Angeles
