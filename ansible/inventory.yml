@@ -1,7 +1,7 @@
 all:
   hosts:
-    ubuntu-hp:
-      ansible_host: 192.168.1.80
+    plex:
+      ansible_host: 192.168.1.15
     vm:
       ansible_host: 192.168.1.254
     localhost:

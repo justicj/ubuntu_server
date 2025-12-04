@@ -20,11 +20,20 @@
   ansible.builtin.debug:
     msg: "Installing NVIDIA key and repository via idempotent keyring + list tasks"
 
+- name: Ensure curl is installed
+  ansible.builtin.apt:
+    name: curl
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
 - name: Create NVIDIA apt keyring
   ansible.builtin.shell:
     cmd: |
-      curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey |
-      gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+      curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+      && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+      sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+      sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
   args:
     creates: /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
 
@@ -47,7 +56,6 @@
     name: "{{ install_packages }}"
     state: present
     update_cache: true
-    cache_valid_time: 3600
 
 # - name: Download Docker desktop from url
 #  ansible.builtin.get_url:
@@ -55,11 +63,11 @@
 #    dest: /tmp/docker-desktop.deb
 #  when: package_facts.ansible_facts.packages['docker-desktop']
 
-- name: Install Docker desktop
-  ansible.builtin.apt:
-    deb: "https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb"
-    state: present
-  when: "'docker-desktop' not in package_facts.ansible_facts.packages"
+#- name: Install Docker desktop
+#  ansible.builtin.apt:
+#    deb: "https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb"
+#    state: present
+#  when: "'docker-desktop' not in package_facts.ansible_facts.packages"
 
 - name: Ensure docker service is started
   ansible.builtin.service:
