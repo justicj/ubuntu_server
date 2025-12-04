@@ -61,7 +61,7 @@ services:
       start_period: 30s
     restart: unless-stopped
   prowlarr:
-    image: linuxserver/prowlarr:develop
+    image: linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
       - PUID=1000
@@ -79,8 +79,8 @@ services:
       start_period: 30s
     restart: unless-stopped
   readarr:
+    image: linuxserver/readarr:0.4.19-nightly
     container_name: readarr
-    image: linuxserver/readarr:develop
     ports:
       - 8787:8787
     environment:
