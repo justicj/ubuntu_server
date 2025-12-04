@@ -26,7 +26,7 @@ services:
     environment:
       LISTEN: /beszel_socket/beszel.sock
       KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ65r7uwYgPaHikZy9c2TmekAO8Bex5P4lE/jhL4wSBq'
-      TOKEN: 001c8088-7cf2-4edb-b968-8fe244ffcce5
+      TOKEN: '133df-708c57074-8f3c-479c38c038'
       HUB_URL: http://localhost:8090
 
   portainer:
