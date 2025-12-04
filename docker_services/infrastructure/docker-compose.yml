@@ -28,6 +28,7 @@ services:
       KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFl4q23GbUkQhPQhgo3ID2KCZ/LgTvJWKWexRxZv4N6F'
       TOKEN: 133df-708c57074-8f3c-479c38c038
       HUB_URL: http://192.168.1.254:8090
+      # gui Host/ip /beszel_socket/beszel.sock
 
   portainer:
     container_name: portainer
@@ -40,7 +41,7 @@ services:
       - 9443:9443
       # - 8000:8000 # Remove if you do not intend to use Edge Agents
     healthcheck:
-      test: [ 'CMD', 'portainer', '--healthcheck' ]
+      test: [ "CMD", "curl", "-fk", "https://localhost:9443" ]
 
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
