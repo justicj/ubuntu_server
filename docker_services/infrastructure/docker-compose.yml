@@ -25,9 +25,9 @@ services:
       # - /mnt/disk/.beszel:/extra-filesystems/sda1:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
-      KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ65r7uwYgPaHikZy9c2TmekAO8Bex5P4lE/jhL4wSBq'
-      TOKEN: '133df-708c57074-8f3c-479c38c038'
-      HUB_URL: http://localhost:8090
+      KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFl4q23GbUkQhPQhgo3ID2KCZ/LgTvJWKWexRxZv4N6F'
+      TOKEN: 133df-708c57074-8f3c-479c38c038
+      HUB_URL: http://192.168.1.254:8090
 
   portainer:
     container_name: portainer
