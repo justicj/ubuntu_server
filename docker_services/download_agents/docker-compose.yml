@@ -13,7 +13,7 @@ services:
     volumes:
       - /appdata/gluetun:/gluetun
     env_file:
-      - .env
+      - /home/plex/.gluetun.env
     environment:
       - TZ=America/Los_Angeles
       #- #VPN_TYPE=##USE##YOUR#OWN##
