@@ -46,26 +46,7 @@ services:
       - WEBUI_PORT=8080
     volumes:
       - /appdata/qbittorrent:/config
-      - /home/plex/Downloads/Complete:/downloads
-      - /pool/data/media:/media
-    restart: unless-stopped
-  sabnzbd:
-    image: linuxserver/sabnzbd:latest
-    container_name: sabnzbd
-    privileged: true
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Los_Angeles
-    volumes:
-      - /appdata/sabnzbd:/config
       - /home/plex/Downloads/Complete:/complete
       - /home/plex/Downloads/Incomplete:/incomplete
-    ports:
-      - 8081:8080
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+    restart: unless-stopped
+
