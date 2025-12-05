@@ -10,7 +10,7 @@ services:
     volumes:
       - /appdata/lidarr:/config
       - /pool/data/media/Music:/music
-      - /home/8853/Downloads/Complete:/downloads
+      - /home/8853/Downloads/Complete:/complete
     ports:
       - 8686:8686
     healthcheck:
@@ -20,6 +20,7 @@ services:
       retries: 3
       start_period: 30s
     restart: unless-stopped
+
   radarr:
     image: linuxserver/radarr:develop
     container_name: radarr
@@ -30,7 +31,7 @@ services:
     volumes:
       - /appdata/radarr:/config
       - /pool/data/media/Movies:/movies
-      - /home/plex/Downloads/Complete:/downloads
+      - /home/plex/Downloads/Complete:/complete
     ports:
       - 7878:7878
     healthcheck:
@@ -40,6 +41,7 @@ services:
       retries: 3
       start_period: 30s
     restart: unless-stopped
+
   sonarr:
     image: linuxserver/sonarr:latest
     container_name: sonarr
@@ -50,7 +52,7 @@ services:
     volumes:
       - /appdata/sonarr:/config
       - /pool/data/media/TV:/tv
-      - /home/plex/Downloads/Complete:/downloads
+      - /home/plex/Downloads/Complete:/complete
     ports:
       - 8989:8989
     healthcheck:
@@ -60,6 +62,7 @@ services:
       retries: 3
       start_period: 30s
     restart: unless-stopped
+
   prowlarr:
     image: linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -92,7 +95,7 @@ services:
       - /appdata/readarr:/config
       - /pool/data/media/Audiobooks/:/audiobooks
       - /pool/data/media/Books/:/books
-      - /home/plex/Downloads/Complete:/downloads
+      - /home/plex/Downloads/Complete:/complete
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8787/ping" ]
       interval: 1m30s
@@ -110,7 +113,7 @@ services:
     ports:
       - '5055:5055'
     volumes:
-      - /appdata/overseerr:/app/config
+      - /appdata/overseerr:/config
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:5055/api/v1/status" ]
