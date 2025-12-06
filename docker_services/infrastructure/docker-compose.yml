@@ -14,19 +14,28 @@ services:
       interval: 120s
 
   beszel-agent:
-    image: henrygd/beszel-agent
+    image: henrygd/beszel-agent-nvidia:latest
     container_name: beszel-agent
     restart: unless-stopped
+    deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: all
+                capabilities:
+                  - utility
     network_mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /appdata/beszel_agent:/var/lib/beszel-agent
+      - /pool/data:/extra-filesystems/zpool:ro
       # monitor other disks / partitions by mounting a folder in /extra-filesystems
       # - /mnt/disk/.beszel:/extra-filesystems/sda1:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
       KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILSeJcM3/98yB9JieQFmCUd/bPOCB0JMkWJ97resDbdG'
-      TOKEN: 3f76-02d47bd136-87ae-6b5851901
+      TOKEN: 812e-c47e10a02-554c-b5ea75c08
       HUB_URL: http://192.168.1.15:8090
       # gui Host/ip /beszel_socket/beszel.sock
 
