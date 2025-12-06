@@ -29,7 +29,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /appdata/beszel_agent:/var/lib/beszel-agent
-      - /pool/data:/extra-filesystems/zpool:ro
+      - /pool/data/.beszel:/extra-filesystems/zpool:ro
       # monitor other disks / partitions by mounting a folder in /extra-filesystems
       # - /mnt/disk/.beszel:/extra-filesystems/sda1:ro
     environment:
