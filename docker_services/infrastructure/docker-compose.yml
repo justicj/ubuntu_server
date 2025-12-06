@@ -48,6 +48,7 @@ services:
       - /appdata/portainer:/data
     ports:
       - 9443:9443
+      - 9000:9000
       # - 8000:8000 # Remove if you do not intend to use Edge Agents
 
   nginx-proxy-manager:
