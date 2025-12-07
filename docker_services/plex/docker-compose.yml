@@ -15,7 +15,7 @@ services:
       - UMASK=022
       - NVIDIA_VISIBLE_DEVICES=all
       #- PLEX_CLAIM=##USE##YOUR#OWN## # https://plex.tv/claim/
-      - 'ADVERTISE_IP=http://192.168.1.15:32400/,https://justice-plex/'
+      #- 'ADVERTISE_IP=http://192.168.1.15:32400/,https://justice-plex/'
     volumes:
       - /appdata/plex:/config
       - /appdata/plex/transcode:/transcode
