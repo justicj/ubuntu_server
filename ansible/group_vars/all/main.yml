@@ -55,3 +55,4 @@ appdata_directories:
   - "{{ appdata_base }}/beszel_agent"
   - "{{ appdata_base }}/beszel_socket"
   - "{{ appdata_base }}/overseerr"
+  - "{{ appdata_base }}/vaultwarden"

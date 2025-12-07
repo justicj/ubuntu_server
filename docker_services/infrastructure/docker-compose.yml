@@ -102,3 +102,24 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    volumes:
+      - /appdata/vaultwarden:/data
+    ports:
+      - 8000:80
+    environment:
+      - DOMAIN=https://v.jaybot.us
+      - SIGNUPS_ALLOWED=false
+      - TZ=America/Los_Angeles
+    env_file:
+      - /home/plex/.gmail_smtp
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:80/" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
