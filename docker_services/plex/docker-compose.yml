@@ -17,7 +17,7 @@ services:
       #- PLEX_CLAIM=##USE##YOUR#OWN## # https://plex.tv/claim/
       #- 'ADVERTISE_IP=http://192.168.1.15:32400/,https://justice-plex/'
     volumes:
-      - /appdata/plex:/config
+      - /appdata/plex/config:/config
       - /appdata/plex/transcode:/transcode
       - /pool/data/media:/media
     healthcheck:

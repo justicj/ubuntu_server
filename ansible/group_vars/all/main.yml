@@ -40,7 +40,7 @@ appdata_directories:
   - "{{ appdata_base }}/sonarr"
   - "{{ appdata_base }}/prowlarr"
   - "{{ appdata_base }}/readarr"
-  - "{{ appdata_base }}/plex"
+  - "{{ appdata_base }}/plex/config"
   - "{{ appdata_base }}/plex/transcode"
   - "{{ appdata_base }}/gluetun"
   - "{{ appdata_base }}/qbittorrent"
