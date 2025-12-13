@@ -137,3 +137,21 @@ services:
     env_file:
       - /home/plex/.watchtower
     restart: unless-stopped
+
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    container_name: duplicati
+    env_file:
+      - /home/plex/.duplicati
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Los_Angeles
+      - CLI_ARGS= #optional
+    volumes:
+      - /appdata/duplicati:/config
+      - /pool/data/backups:/backups
+      - /appdata:/source
+    ports:
+      - 8200:8200
+    restart: unless-stopped
