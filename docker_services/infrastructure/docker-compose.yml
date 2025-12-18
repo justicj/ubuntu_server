@@ -55,6 +55,10 @@ services:
     container_name: nginx-proxy-manager
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
     ports:
       - '80:80'
       - '81:81'
@@ -145,8 +149,9 @@ services:
     env_file:
       - /home/plex/.duplicati
     environment:
-      - PUID=0
-      - PGID=0
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
       - TZ=America/Los_Angeles
       - CLI_ARGS= #optional
     volumes:

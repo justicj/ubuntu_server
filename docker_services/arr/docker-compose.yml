@@ -108,8 +108,11 @@ services:
     container_name: overseerr
     image: linuxserver/overseerr:latest
     environment:
-      - LOG_LEVEL=debug
+      - LOG_LEVEL=info
       - TZ=America/Los_Angeles
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
     ports:
       - '5055:5055'
     volumes:
