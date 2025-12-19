@@ -3,6 +3,10 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     restart: unless-stopped
+    environment:
+      PUID: 1000
+      PGID: 1000
+      UMASK: 002
     ports:
       - 8090:8090
     volumes:
@@ -38,11 +42,18 @@ services:
       TOKEN: 812e-c47e10a02-554c-b5ea75c08
       HUB_URL: http://192.168.1.15:8090
       # gui Host/ip /beszel_socket/beszel.sock
+      PUID: 1000
+      PGID: 1000
+      UMASK: 002
 
   portainer:
     container_name: portainer
     image: portainer/portainer-ce:lts
     restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /appdata/portainer:/data
@@ -79,6 +90,11 @@ services:
     volumes:
       - /appdata/homeassistant_config:/config
     restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Los_Angeles
     ports:
       - 8123:8123
     healthcheck:
@@ -118,6 +134,9 @@ services:
       - DOMAIN=https://v.jaybot.us
       - SIGNUPS_ALLOWED=false
       - TZ=America/Los_Angeles
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
     env_file:
       - /home/plex/.gmail_smtp
     healthcheck:
@@ -139,6 +158,9 @@ services:
       - WATCHTOWER_ROLLING_RESTART=true
       - WATCHTOWER_SCHEDULE=0 0 4 * * *
       - TZ=America/Los_Angeles
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
     env_file:
       - /home/plex/.watchtower
     restart: unless-stopped

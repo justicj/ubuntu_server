@@ -23,6 +23,8 @@ services:
       #- #OPENVPN_PASSWORD=##USE##YOUR#OWN##
       - VPN_SERVICE_PROVIDER=privado
       - SERVER_COUNTRIES=United States
+      - PUID=1000
+      - PGID=1000
     ports:
       - 6881:6881/tcp # QBittorrent
       - 6881:6881/udp # QBittorrent
@@ -44,6 +46,8 @@ services:
       - PGID=1000
       - TZ=America/Los_Angeles
       - WEBUI_PORT=8080
+      - PUID=1000
+      - PGID=1000
     volumes:
       - /appdata/qbittorrent:/config
       - /home/plex/Downloads/Complete:/complete
