@@ -21,6 +21,9 @@ services:
     image: henrygd/beszel-agent-nvidia:latest
     container_name: beszel-agent
     restart: unless-stopped
+    healthcheck:
+      test: ['CMD', '/agent', 'health']
+      interval: 120s
     deploy:
         resources:
           reservations:
@@ -183,3 +186,15 @@ services:
     ports:
       - 8200:8200
     restart: unless-stopped
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma
+    environment:
+      - PUID=1000
+      - PGID=1000
+    restart: unless-stopped
+    volumes:
+      - /appdata/uptime_kuma:/app/data
+    ports:
+      - "3001:3001"

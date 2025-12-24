@@ -57,3 +57,4 @@ appdata_directories:
   - "{{ appdata_base }}/overseerr"
   - "{{ appdata_base }}/vaultwarden"
   - "{{ appdata_base }}/duplicati"
+  - "{{ appdata_base }}/uptime_kuma"
