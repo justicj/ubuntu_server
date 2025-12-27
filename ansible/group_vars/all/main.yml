@@ -42,6 +42,8 @@ appdata_directories:
   - "{{ appdata_base }}/readarr"
   - "{{ appdata_base }}/plex/config"
   - "{{ appdata_base }}/plex/transcode"
+  - "{{ appdata_base }}/jellyfin/config"
+  - "{{ appdata_base }}/jellyfin/cache"
   - "{{ appdata_base }}/gluetun"
   - "{{ appdata_base }}/qbittorrent"
   - "{{ appdata_base }}/jackett"

@@ -26,3 +26,32 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    user: 1000:1000
+    network_mode: 'host'
+    volumes:
+      - /appdata/jellyfin/config:/config
+      - /appdata/jellyfin/cache:/cache
+      - type: bind
+        source: /pool/data/media
+        target: /media
+        read_only: true
+    restart: 'unless-stopped'
+    environment:
+      - JELLYFIN_PublishedServerUrl=https://jf.jaybot.us
+      - TZ=America/Los_Angeles
+      - PUID=1000
+      - PGID=1000
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
