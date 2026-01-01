@@ -26,6 +26,7 @@ pvr_directories:
   - "{{ zfs_pool }}/TV"
   - "{{ zfs_pool }}/Music"
   - "{{ zfs_pool }}/Books"
+  - "{{ zfs_pool }}/BookDrop"
   - "{{ zfs_pool }}/Audiobooks"
   - "{{ zfs_pool }}/Torrents"
   - "/home/{{ ubuntu_username }}/Downloads"
@@ -60,3 +61,5 @@ appdata_directories:
   - "{{ appdata_base }}/vaultwarden"
   - "{{ appdata_base }}/duplicati"
   - "{{ appdata_base }}/uptime_kuma"
+  - "{{ appdata_base }}/mariadb/config"
+  - "{{ appdata_base }}/booklore/data"

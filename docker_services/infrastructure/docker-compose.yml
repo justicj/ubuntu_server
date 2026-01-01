@@ -183,6 +183,7 @@ services:
       - /appdata/duplicati:/config
       - /pool/data/backups:/backups
       - /appdata:/source
+      - /home/plex:/plexhome
     ports:
       - 8200:8200
     restart: unless-stopped
@@ -198,3 +199,48 @@ services:
       - /appdata/uptime_kuma:/app/data
     ports:
       - "3001:3001"
+
+  booklore:
+    image: booklore/booklore:latest
+    container_name: booklore
+    env_file:
+      - /home/plex/.booklore
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - USER_ID=1000
+      - GROUP_ID=1000
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "6060:6060"
+    volumes:
+      - /appdata/booklore/data:/app/data
+      - /pool/data/media/Books:/books
+      - /pool/data/media/BookDrop:/bookdrop
+    healthcheck:
+      test: wget -q -O - http://localhost:6060/api/v1/healthcheck
+      interval: 60s
+      retries: 5
+      start_period: 60s
+      timeout: 10s
+    restart: unless-stopped
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:11.4.5
+    container_name: mariadb
+    env_file:
+      - /home/plex/.booklore
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /appdata/mariadb/config:/config
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
