@@ -114,7 +114,7 @@ services:
       - PGID=1000
       - UMASK=002
     ports:
-      - '5055:5055'
+      - 5055:5055
     volumes:
       - /appdata/overseerr:/config
     restart: unless-stopped
@@ -128,7 +128,6 @@ services:
   sabnzbd:
     image: linuxserver/sabnzbd:latest
     container_name: sabnzbd
-    privileged: true
     environment:
       - PUID=1000
       - PGID=1000
@@ -146,3 +145,17 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+
+  maintainerr:
+    image: ghcr.io/maintainerr/maintainerr:latest
+    container_name: maintainerr
+    user: 1000:1000
+    volumes:
+      - /appdata/maintainerr:/opt/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    ports:
+      - 6246:6246
+    restart: unless-stopped
