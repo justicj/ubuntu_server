@@ -63,3 +63,4 @@ appdata_directories:
   - "{{ appdata_base }}/uptime_kuma"
   - "{{ appdata_base }}/mariadb/config"
   - "{{ appdata_base }}/booklore/data"
+  - "{{ appdata_base }}/maintainerr"

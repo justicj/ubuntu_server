@@ -158,7 +158,7 @@ services:
     environment:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_INCLUDE_STOPPED=true
-      - WATCHTOWER_ROLLING_RESTART=true
+      #- WATCHTOWER_ROLLING_RESTART=true
       - WATCHTOWER_SCHEDULE=0 0 4 * * *
       - TZ=America/Los_Angeles
       - PUID=1000
