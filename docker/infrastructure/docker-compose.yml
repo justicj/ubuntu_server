@@ -13,7 +13,7 @@ services:
       - /appdata/beszel:/beszel_data
       - /appdata/beszel_socket:/beszel_socket
     healthcheck:
-      test: [ 'CMD', '/beszel', 'health', '--url', 'http://localhost:8090' ]
+      test: ["CMD", "/beszel", "health", "--url", "http://localhost:8090"]
       start_period: 30s
       interval: 120s
 
@@ -22,16 +22,16 @@ services:
     container_name: beszel-agent
     restart: unless-stopped
     healthcheck:
-      test: ['CMD', '/agent', 'health']
+      test: ["CMD", "/agent", "health"]
       interval: 120s
     deploy:
-        resources:
-          reservations:
-            devices:
-              - driver: nvidia
-                count: all
-                capabilities:
-                  - utility
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - utility
     network_mode: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -41,7 +41,7 @@ services:
       # - /mnt/disk/.beszel:/extra-filesystems/sda1:ro
     environment:
       LISTEN: /beszel_socket/beszel.sock
-      KEY: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILSeJcM3/98yB9JieQFmCUd/bPOCB0JMkWJ97resDbdG'
+      KEY: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILSeJcM3/98yB9JieQFmCUd/bPOCB0JMkWJ97resDbdG"
       TOKEN: 812e-c47e10a02-554c-b5ea75c08
       HUB_URL: http://192.168.1.15:8090
       # gui Host/ip /beszel_socket/beszel.sock
@@ -67,21 +67,21 @@ services:
 
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: "jc21/nginx-proxy-manager:latest"
     restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - UMASK=002
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - "80:80"
+      - "81:81"
+      - "443:443"
     volumes:
       - /appdata/nginx_proxy_manager:/data
       - /appdata/nginx_proxy_manager_letsencrypt:/etc/letsencrypt
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:81/api" ]
+      test: ["CMD", "curl", "-f", "http://localhost:81/api"]
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -101,7 +101,7 @@ services:
     ports:
       - 8123:8123
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8123" ]
+      test: ["CMD", "curl", "-f", "http://localhost:8123"]
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -120,7 +120,7 @@ services:
       - 8181:8181
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8181/status" ]
+      test: ["CMD", "curl", "-f", "http://localhost:8181/status"]
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -143,7 +143,7 @@ services:
     env_file:
       - /home/plex/.gmail_smtp
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:80/" ]
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -240,7 +240,20 @@ services:
       - /appdata/mariadb/config:/config
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
       interval: 5s
       timeout: 5s
       retries: 10
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - "3000:3000"
+    volumes:
+      - /appdata/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=*
+      - PUID=1000
+      - PGID=1000

@@ -1,4 +1,5 @@
 .env
 .env.*
+.venv
 beszel_*
 nginx_proxy_manager*

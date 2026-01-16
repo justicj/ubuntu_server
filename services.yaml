@@ -1,0 +1,128 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Media Servers:
+    - Plex:
+        href: http://192.168.1.15:32400/web
+        description: Media server with hardware transcoding
+        icon: plex.png
+        
+    - Jellyfin:
+        href: http://192.168.1.15:8096
+        description: Alternative media server with GPU acceleration
+        icon: jellyfin.png
+
+- Media Management (Arr Stack):
+    - Sonarr:
+        href: http://192.168.1.15:8989
+        description: TV series management and automation
+        icon: sonarr.png
+        
+    - Radarr:
+        href: http://192.168.1.15:7878
+        description: Movie management and automation
+        icon: radarr.png
+        
+    - Lidarr:
+        href: http://192.168.1.15:8686
+        description: Music management and automation
+        icon: lidarr.png
+        
+    - Readarr:
+        href: http://192.168.1.15:8787
+        description: Books and audiobooks management
+        icon: readarr.png
+        
+    - Prowlarr:
+        href: http://192.168.1.15:9696
+        description: Indexer manager for Arr applications
+        icon: prowlarr.png
+        
+    - Overseerr:
+        href: http://192.168.1.15:5055
+        description: Request management for media libraries
+        icon: overseerr.png
+        
+    - Maintainerr:
+        href: http://192.168.1.15:6246
+        description: Media library maintenance and cleanup
+        icon: maintainerr.png
+
+- Download Clients:
+    - qBittorrent:
+        href: http://192.168.1.15:8080
+        description: Torrent client behind VPN
+        icon: qbittorrent.png
+        
+    - SABnzbd:
+        href: http://192.168.1.15:8081
+        description: Usenet download client
+        icon: sabnzbd.png
+        
+    - Gluetun:
+        href: http://192.168.1.15:8888
+        description: VPN client for secure downloads
+        icon: gluetun.png
+
+- Infrastructure & Monitoring:
+    - Portainer:
+        href: https://192.168.1.15:9443
+        description: Docker container management
+        icon: portainer.png
+        
+    - Nginx Proxy Manager:
+        href: http://192.168.1.15:81
+        description: Reverse proxy and SSL certificate manager
+        icon: nginx-proxy-manager.png
+        
+    - Beszel:
+        href: http://192.168.1.15:8090
+        description: System monitoring and statistics
+        icon: beszel.png
+        
+    - Uptime Kuma:
+        href: http://192.168.1.15:3001
+        description: Service uptime monitoring
+        icon: uptime-kuma.png
+        
+    - Watchtower:
+        href: http://192.168.1.15
+        description: Automatic Docker container updates
+        icon: watchtower.png
+        
+    - Tautulli:
+        href: http://192.168.1.15:8181
+        description: Plex monitoring and statistics
+        icon: tautulli.png
+
+- Utilities & Services:
+    - Home Assistant:
+        href: http://192.168.1.15:8123
+        description: Home automation platform
+        icon: home-assistant.png
+        
+    - Vaultwarden:
+        href: http://192.168.1.15:8000
+        description: Password manager (Bitwarden compatible)
+        icon: vaultwarden.png
+        
+    - Duplicati:
+        href: http://192.168.1.15:8200
+        description: Backup solution
+        icon: duplicati.png
+        
+    - Booklore:
+        href: http://192.168.1.15:6060
+        description: Book management and tracking
+        icon: booklore.png
+        
+    - MariaDB:
+        href: http://192.168.1.15:3306
+        description: Database server for Booklore
+        icon: mariadb.png
+        
+    - Homepage:
+        href: http://192.168.1.15:3000
+        description: Dashboard for all services
+        icon: homepage.png
