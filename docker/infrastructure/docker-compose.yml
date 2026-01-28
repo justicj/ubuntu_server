@@ -259,7 +259,15 @@ services:
       - PGID=1000
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/api/healthcheck"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "-O",
+          "-",
+          "http://localhost:3000/api/healthcheck",
+        ]
       interval: 1m30s
       timeout: 10s
       retries: 3
